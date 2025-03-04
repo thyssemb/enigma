@@ -1,0 +1,7 @@
+implémenter les 3 classes des 3 algo
+faire les routes ;
+
+suivant l'algo choisi par l'user, ça passera dans routes puis dans le controller puis dans le service associé
+
+implémenter les routes
+implémenter le controlleur qui redirige dans le bon service d'algo
