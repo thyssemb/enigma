@@ -14,7 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $phrase = $_POST['phrase'];
     $key = $_POST['key'];
 
-    // Rediriger vers le contrôleur qui gère cet algo
+
+    /* redirection vers le bon algo suivant le choix */
     switch ($algo) {
         case 'cesar':
             require_once 'controller.php';
