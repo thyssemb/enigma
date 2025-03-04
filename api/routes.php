@@ -9,7 +9,6 @@ use App\Chiffrement\OneTimePad;
  */
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Récupérer l'algorithme choisi
     $algo = $_POST['algo'];
     $phrase = $_POST['phrase'];
     $key = $_POST['key'];

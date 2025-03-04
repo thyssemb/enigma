@@ -65,15 +65,12 @@ require_once 'vendor/autoload.php';
 
     <script>
         document.getElementById('algo').addEventListener('change', function() {
-            // Affiche la section des particularités
             document.getElementById('algo-explanation').style.display = 'block';
 
-            // Cache tous les détails
             document.getElementById('cesar-explanation').style.display = 'none';
             document.getElementById('vigenere-explanation').style.display = 'none';
             document.getElementById('masque-jetable-explanation').style.display = 'none';
 
-            // Affiche le détail correspondant à l'algorithme choisi
             const selectedAlgo = this.value;
 
             if (selectedAlgo === 'cesar') {

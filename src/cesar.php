@@ -8,4 +8,5 @@ use App\Chiffrement\Cesar;
 
 class Cesar {
 
+    public $alphabet = 'abcdefghijklmnopqrstuvwxyz';
 }

@@ -9,4 +9,5 @@ use App\Chiffrement\OneTimePad;
 
 class One_Time_Pad {
 
+    public $alphabet = 'abcdefghijklmnopqrstuvwxyz';
 }

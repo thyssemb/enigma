@@ -8,4 +8,5 @@ use App\Chiffrement\Vigenere;
 
 class Vigenere {
 
+    public $alphabet = 'abcdefghijklmnopqrstuvwxyz';
 }
