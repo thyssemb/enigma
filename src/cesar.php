@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Chiffrement;
+use App\Chiffrement\Cesar;
 
 /**
  * Classe pour l'algo César

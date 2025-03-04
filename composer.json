@@ -1,0 +1,17 @@
+{
+    "name": "thyssem/enigma",
+    "description": "outil de chiffrement utilisant des algorithmes classiques comme César, Vigenère et le Masque Jetable",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\Chiffrement\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "thyssem",
+            "email": "thyssem.bazizi-makhlouf@epitech.eu"
+        }
+    ],
+    "require": {}
+}

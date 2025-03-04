@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Chiffrement;
+use App\Chiffrement\OneTimePad;
 
 /**
  * Classe pour l'algo Masque jetable
