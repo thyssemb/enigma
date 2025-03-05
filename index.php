@@ -45,16 +45,17 @@ require_once 'vendor/autoload.php';
         </p>
     </section>
 
-    <section id="backend-explanation">
-        <h2>Comment fonctionne la logique de chiffrement côté back-end ?</h2>
-        <p>
-            Le backend de l'application Enigma repose sur des algorithmes de chiffrement traditionnels tels que César, Vigenère et Masque Jetable.
-            Lorsqu'une phrase et un algorithme sont choisis, la requête est d'abord traitée par une route spécifique, qui oriente ensuite la requête vers le service approprié. Chaque algorithme possède sa propre classe, regroupée sous un même namespace.
-        </p>
-        <p>
-            La structure est pensée pour être simple et modulaire : chaque algorithme dispose d'une classe dédiée dans le répertoire <code>src/</code>, et le contrôleur choisit quel service utiliser en fonction de l'algorithme sélectionné par l'utilisateur.
-        </p>
-    </section>
+  <section id="backend-explanation">
+      <h2>Comment fonctionne la logique de chiffrement côté back-end ?</h2>
+      <p>
+          Le backend de l'application Enigma repose sur des algorithmes de chiffrement traditionnels tels que César, Vigenère et Masque Jetable.
+          Lorsqu'une phrase et un algorithme sont choisis, la requête est directement traitée par le contrôleur principal, qui oriente l'exécution vers l'algorithme correspondant. Chaque algorithme possède sa propre classe, regroupée sous un même namespace.
+      </p>
+      <p>
+          La structure est pensée pour être simple et modulaire : chaque algorithme dispose d'une classe dédiée dans le répertoire <code>src/</code>, et le contrôleur sélectionne dynamiquement l'algorithme à utiliser en fonction des paramètres envoyés par l'utilisateur.
+      </p>
+  </section>
+
 
     <?php
        if ($_SERVER["REQUEST_METHOD"] === "POST") {

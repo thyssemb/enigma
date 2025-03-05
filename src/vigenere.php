@@ -1,6 +1,6 @@
 <?php
 
-use App\Chiffrement\Vigenere;
+namespace App\Chiffrement;
 
 /**
  * Classe pour l'algo Chiffre de Vigenère

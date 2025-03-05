@@ -13,5 +13,7 @@
             "email": "thyssem.bazizi-makhlouf@epitech.eu"
         }
     ],
-    "require": {}
+    "require-dev": {
+        "phpunit/phpunit": "^11.5"
+    }
 }
