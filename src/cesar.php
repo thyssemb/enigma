@@ -8,9 +8,14 @@ namespace App\Chiffrement;
 class Cesar {
 
     public $alphabet = 'abcdefghijklmnopqrstuvwxyz';
-    public $text = 'hello';
-    public $key = 4;
+    public $char;
+    public $key;
     public $result = '';
+
+    public function __construct($key, $char) {
+        $this->key = (int) $key;
+        $this->char = $char;
+    }
 
     public function returnChar() {
         $this->result = '';

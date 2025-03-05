@@ -10,7 +10,7 @@ require_once 'vendor/autoload.php';
     <title>Enigma</title>
 </head>
 <body>
-    <form method="post">
+    <form method="post" action="api/controller/controller.php">
         <h1>Enigma</h1>
 
         <select name="algo" id="algo" required>
@@ -20,7 +20,7 @@ require_once 'vendor/autoload.php';
             <option value="masque_jetable">Masque jetable</option>
         </select>
 
-        <input type="text" name="phrase" placeholder="Entrez une phrase" required>
+        <input type="text" name="char" placeholder="Entrez une phrase" required>
 
         <div id="key-container" style="display: none;">
             <input type="text" name="key" id="key" placeholder="Entrez une clé" required>
@@ -58,9 +58,14 @@ require_once 'vendor/autoload.php';
 
 
     <?php
-       if ($_SERVER["REQUEST_METHOD"] === "POST") {
-           $phrase = htmlspecialchars($_POST["phrase"]);
-       }
+     if ($_SERVER["REQUEST_METHOD"] === "POST") {
+         $char = isset($_POST["char"]) ? htmlspecialchars($_POST["char"]) : '';  // Valeur par défaut si "char" n'est pas défini
+         $key = isset($_POST["key"]) ? htmlspecialchars($_POST["key"]) : '';  // Valeur par défaut si "key" n'est pas défini
+
+         echo 'Données récupérées du formulaire :<br>';
+         echo 'Phrase: ' . $char . '<br>';
+         echo 'Clé: ' . $key . '<br>';
+     }
     ?>
      <script src="script.js"></script>
 
