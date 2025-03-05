@@ -9,11 +9,20 @@ class CesarTest extends TestCase
     {
         $cesar = new Cesar();
 
-        $cesar->text = 'salut';
-        $cesar->key = 3;
-
         $result = $cesar->returnChar();
 
-        $this->assertEquals('vdoxw', $result);
+        $this->assertEquals('hello', $result);
+    }
+
+    public function testChiffrement()
+    {
+        $cesar = new Cesar();
+
+        $cesar->returnChar();
+        $result = $cesar->chiffrement();
+
+        echo "Résultat du chiffrement : " . $result . PHP_EOL;
+
+        $this->assertEquals('lipps', $result);
     }
 }
