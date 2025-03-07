@@ -4,7 +4,7 @@ namespace App\Chiffrement;
 
 /**
  * Classe pour l'algo César
- */
+**/
 class Cesar {
 
     public $alphabet = 'abcdefghijklmnopqrstuvwxyz';
@@ -28,21 +28,21 @@ class Cesar {
         return $this->result;
     }
 
-    public function chiffrement() {
-        $encryptedChar = '';
+      public function chiffrement() {
+            $encryptedChar = '';
 
-        for ($i = 0; $i < strlen($this->result); $i++) {
-            $char = $this->result[$i];
+            for ($i = 0; $i < strlen($this->char); $i++) {
+                $char = $this->char[$i];
 
-            if (strpos($this->alphabet, $char) !== false) {
-                $index = strpos($this->alphabet, $char);
-                $newIndex = ($index + $this->key) % strlen($this->alphabet);
-                $encryptedChar .= $this->alphabet[$newIndex];
-            } else {
-                $encryptedChar .= $char;
+                if (strpos($this->alphabet, $char) !== false) {
+                    $index = strpos($this->alphabet, $char);
+                    $newIndex = ($index + $this->key) % strlen($this->alphabet);
+                    $encryptedChar .= $this->alphabet[$newIndex];
+                } else {
+                    $encryptedChar .= $char;
+                }
             }
-        }
 
-        return $encryptedChar;
-    }
+            return $encryptedChar;
+        }
 }

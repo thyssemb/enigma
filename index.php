@@ -1,5 +1,19 @@
 <?php
 require_once 'vendor/autoload.php';
+
+
+use App\Controller\Controller;
+
+$controller = new Controller();
+$result = '';
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $char = isset($_POST["char"]) ? htmlspecialchars($_POST["char"]) : null;
+    $key = isset($_POST["key"]) ? htmlspecialchars($_POST["key"]) : null;
+    $algo = isset($_POST["algo"]) ? $_POST["algo"] : null;
+
+    $result = $controller->handleRequest($algo, $char, $key);
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -10,7 +24,7 @@ require_once 'vendor/autoload.php';
     <title>Enigma</title>
 </head>
 <body>
-    <form method="post" action="api/controller/controller.php">
+    <form method="post">
         <h1>Enigma</h1>
 
         <select name="algo" id="algo" required>
@@ -57,16 +71,14 @@ require_once 'vendor/autoload.php';
   </section>
 
 
-    <?php
-     if ($_SERVER["REQUEST_METHOD"] === "POST") {
-         $char = isset($_POST["char"]) ? htmlspecialchars($_POST["char"]) : '';  // Valeur par défaut si "char" n'est pas défini
-         $key = isset($_POST["key"]) ? htmlspecialchars($_POST["key"]) : '';  // Valeur par défaut si "key" n'est pas défini
-
-         echo 'Données récupérées du formulaire :<br>';
-         echo 'Phrase: ' . $char . '<br>';
-         echo 'Clé: ' . $key . '<br>';
-     }
+    <?php if ($result): ?>
+         <section id="result">
+             <h2>Phrase cryptée :</h2>
+             <p><?php echo htmlspecialchars($result); ?></p>
+         </section>
+     <?php endif; ?>
     ?>
+
      <script src="script.js"></script>
 
     <script>
