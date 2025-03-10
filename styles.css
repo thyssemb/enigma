@@ -14,7 +14,7 @@ form {
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    margin-bottom: 40px; /* Ajout d'un espacement sous le formulaire */
+    margin-bottom: 40px;
     text-align: center;
 }
 
@@ -47,6 +47,7 @@ button {
 button:hover {
     background-color: #45a049;
 }
+
 
 /* section explicative du backend */
 #backend-explanation {

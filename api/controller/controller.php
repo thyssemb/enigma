@@ -18,7 +18,7 @@ class Controller {
 
     private $allowedMethods = ['POST'];
 
-    public function handleRequest($algo, $char, $key, $encrypt)
+    public function handleRequest($algo, $char, $key, $encrypt, $generate_key)
        {
            $result = '';
 
@@ -36,12 +36,7 @@ class Controller {
                    }
                    break;
                case 'masque_jetable':
-                   $onetimepad = new OneTimePad($key, $char);
-                   if (strlen($key) >= strlen($char)) {
-                   $result = $onetimepad->encrypt();
-                   } else {
-                   echo "La clé doit être supérieure ou égale à la phrase à crypter.";
-                   }
+                   $onetimepad = new OneTimePad($char, $generate_key);
                    break;
                default:
                    $result = "Algorithme non valide.";

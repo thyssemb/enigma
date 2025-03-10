@@ -11,16 +11,13 @@ class OneTimePad {
 
     public $alphabet = 'abcdefghijklmnopqrstuvwxyz';
     public $char;
-    public $key;
+    public $generate_key;
     public $result = '';
 
-    public function __construct($key, $char) {
+    public function __construct($generate_key, $char) {
         $this->key = $key;
         $this->char = $char;
     }
-
-// la clé doit être supérieure ou égale à la phrase à crypter
-// les caractères de la clé doivent être généré de manière aléatoire
 
     public function encrypt() {
 

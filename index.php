@@ -12,6 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $key = isset($_POST["key"]) ? htmlspecialchars($_POST["key"]) : '';
     $algo = isset($_POST["algo"]) ? $_POST["algo"] : '';
     $encrypt = isset($_POST["encrypt"]) ? $_POST["encrypt"] : '';
+    $generate_key = isset($_POST["encrypt"]) ? $_POST["generate-key"] : '';
 
 
     $result = $controller->handleRequest($algo, $char, $key, $encrypt);
@@ -38,9 +39,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <input type="text" name="char" placeholder="Entrez une phrase" required>
 
-        <div id="key-container" style="display: none;">
+        <div id="key-container" style="display: block;">
             <input type="text" name="key" id="key" placeholder="Entrez une clé" required>
         </div>
+
+    <div id="key-display" style="display: none;">
+        <button type="button" id="generate-key">Générer une clé</button>
+    </div>
 
         <div id="encrypt-decrypt">
             <label class="switch">
@@ -107,6 +112,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 document.getElementById('vigenere-explanation').style.display = 'block';
             } else if (selectedAlgo === 'masque_jetable') {
                 document.getElementById('masque-jetable-explanation').style.display = 'block';
+                document.getElementById('key-container').style.display = 'none';
+                document.getElementById('key-display').style.display = 'block';
             }
         });
     </script>
