@@ -37,7 +37,11 @@ class Controller {
                    break;
                case 'masque_jetable':
                    $otp = new OneTimePad($key, $char);
-                   $result = $otp->encrypt($char);
+                   if (strlen($key) == strlen($char)) {
+                   $result = onetimepad->encrypt();
+                   } else {
+                   echo "La clé doit être supérieure ou égale à la phrase à crypter."
+                   }
                    break;
                default:
                    $result = "Algorithme non valide.";

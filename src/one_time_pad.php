@@ -19,6 +19,9 @@ class One_Time_Pad {
         $this->char = $char;
     }
 
+// la clé doit être supérieure ou égale à la phrase à crypter
+// les caractères de la clé doivent être généré de manière aléatoire
+
     public function encrypt() {
 
     }
