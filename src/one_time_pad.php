@@ -7,7 +7,7 @@ namespace App\Chiffrement;
 **/
 
 
-class One_Time_Pad {
+class OneTimePad {
 
     public $alphabet = 'abcdefghijklmnopqrstuvwxyz';
     public $char;

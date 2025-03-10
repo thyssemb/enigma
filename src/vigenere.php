@@ -39,12 +39,12 @@ class Vigenere
     ];
 
     public $key;
-    public $text;
+    public $char;
 
-    public function __construct($key, $text)
+    public function __construct($key, $char)
     {
         $this->key = strtoupper($key);
-        $this->text = strtoupper($text);
+        $this->char = strtoupper($char);
     }
 
     public function encrypt()
@@ -53,8 +53,8 @@ class Vigenere
         $keyLength = strlen($this->key);
         $keyIndex = 0;
 
-        for ($i = 0; $i < strlen($this->text); $i++) {
-            $char = $this->text[$i];
+        for ($i = 0; $i < strlen($this->char); $i++) {
+            $char = $this->char[$i];
 
             if (($charPos = strpos($this->alphabet, $char)) !== false) {
                 $keyChar = $this->key[$keyIndex % $keyLength];
@@ -76,8 +76,8 @@ class Vigenere
         $keyLength = strlen($this->key);
         $keyIndex = 0;
 
-        for ($i = 0; $i < strlen($this->text); $i++) {
-            $char = $this->text[$i];
+        for ($i = 0; $i < strlen($this->char); $i++) {
+            $char = $this->char[$i];
 
             if (($keyPos = strpos($this->alphabet, $this->key[$keyIndex % $keyLength])) !== false) {
                 for ($j = 0; $j < 26; $j++) {
