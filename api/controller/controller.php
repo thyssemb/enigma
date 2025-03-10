@@ -18,22 +18,26 @@ class Controller {
 
     private $allowedMethods = ['POST'];
 
-    public function handleRequest($algo, $char, $key)
+    public function handleRequest($algo, $char, $key, $encrypt)
        {
            $result = '';
 
            switch ($algo) {
                case 'cesar':
                    $cesar = new Cesar($key, $char);
-                   $result = $cesar->chiffrement($char);
+                   $result = $cesar->encrypt($char);
                    break;
                case 'vigenere':
-                   $vigenere = new Vigenere($key, $char);
-                   $result = $vigenere->chiffrement($char);
+                   $vigenere = new Vigenere($key, $char, $encrypt);
+                   if (strlen($key) == strlen($char)) {
+                   $result = $vigenere->encrypt();
+                   } else {
+                   echo "Les phrases entrées ne sont pas de la même longueur";
+                   }
                    break;
                case 'masque_jetable':
                    $otp = new OneTimePad($key, $char);
-                   $result = $otp->chiffrement($char);
+                   $result = $otp->encrypt($char);
                    break;
                default:
                    $result = "Algorithme non valide.";
@@ -45,4 +49,3 @@ class Controller {
 }
 
 $controller = new Controller();
-$controller->handleRequest($algo, $char, $key);

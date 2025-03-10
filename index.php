@@ -8,11 +8,13 @@ $controller = new Controller();
 $result = '';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $char = isset($_POST["char"]) ? htmlspecialchars($_POST["char"]) : null;
-    $key = isset($_POST["key"]) ? htmlspecialchars($_POST["key"]) : null;
-    $algo = isset($_POST["algo"]) ? $_POST["algo"] : null;
+    $char = isset($_POST["char"]) ? htmlspecialchars($_POST["char"]) : '';
+    $key = isset($_POST["key"]) ? htmlspecialchars($_POST["key"]) : '';
+    $algo = isset($_POST["algo"]) ? $_POST["algo"] : '';
+    $encrypt = isset($_POST["encrypt"]) ? $_POST["encrypt"] : '';
 
-    $result = $controller->handleRequest($algo, $char, $key);
+
+    $result = $controller->handleRequest($algo, $char, $key, $encrypt);
 }
 ?>
 <!DOCTYPE html>
@@ -40,6 +42,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <input type="text" name="key" id="key" placeholder="Entrez une clé" required>
         </div>
 
+        <div id="encrypt-decrypt">
+            <label class="switch">
+                <input type="checkbox" name="encrypt">
+                <span class="slider"></span>
+            </label>
+            <span id="toggle-text">Crypter</spamn>
+        </div>
+
         <button type="submit">Envoyer</button>
     </form>
 
@@ -51,13 +61,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </p>
         <p id="vigenere-explanation" style="display:none;">
             <strong>Chiffre de Vigenère</strong><br>
-            La clé est une chaîne de caractères, et chaque lettre de la clé est utilisée pour chiffrer une lettre du message. La clé doit être répétée pour correspondre à la longueur du message.
+            La clé est une chaîne de caractères, et chaque lettre de la clé est utilisée pour chiffrer une lettre du message. La clé utilisée doit être de la même longueur que la phrase à crypter.
         </p>
         <p id="masque-jetable-explanation" style="display:none;">
             <strong>Masque Jetable</strong><br>
             La clé doit être aussi longue que le message, choisie de manière aléatoire, et ne peut être utilisée qu'une seule fois pour garantir la sécurité du chiffrement.
         </p>
     </section>
+
+
+    <?php if ($result): ?>
+         <section id="result">
+             <h2>Phrase cryptée :</h2>
+             <p><?php echo htmlspecialchars($result); ?></p>
+         </section>
+     <?php endif; ?>
 
   <section id="backend-explanation">
       <h2>Comment fonctionne la logique de chiffrement côté back-end ?</h2>
@@ -70,14 +88,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       </p>
   </section>
 
-
-    <?php if ($result): ?>
-         <section id="result">
-             <h2>Phrase cryptée :</h2>
-             <p><?php echo htmlspecialchars($result); ?></p>
-         </section>
-     <?php endif; ?>
-    ?>
 
      <script src="script.js"></script>
 

@@ -28,7 +28,7 @@ class Cesar {
         return $this->result;
     }
 
-      public function chiffrement() {
+      public function encrypt() {
             $encryptedChar = '';
 
             for ($i = 0; $i < strlen($this->char); $i++) {
