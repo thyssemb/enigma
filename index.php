@@ -8,14 +8,14 @@ $controller = new Controller();
 $result = '';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $char = isset($_POST["char"]) ? htmlspecialchars($_POST["char"]) : '';
-    $key = isset($_POST["key"]) ? htmlspecialchars($_POST["key"]) : '';
+    $char = isset($_POST["char"]) ? trim(htmlspecialchars($_POST["char"])) : '';
+    $key = isset($_POST["key"]) ? trim(htmlspecialchars($_POST["key"])) : '';
     $algo = isset($_POST["algo"]) ? $_POST["algo"] : '';
-    $encrypt = isset($_POST["encrypt"]) ? $_POST["encrypt"] : '';
-    $generate_key = isset($_POST["encrypt"]) ? $_POST["generate-key"] : '';
+    $action = isset($_POST["action"]) ? $_POST["action"] : '';
+    $generate_key = isset($_POST["generate-key"]) ? trim(htmlspecialchars($_POST["generate-key"])) : '';
 
 
-    $result = $controller->handleRequest($algo, $char, $key, $encrypt);
+    $result = $controller->handleRequest($algo, $char, $key, $action, $generate_key);
 }
 ?>
 <!DOCTYPE html>
@@ -47,16 +47,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <button type="button" id="generate-key">Générer une clé</button>
     </div>
 
-        <div id="encrypt-decrypt">
-            <label class="switch">
-                <input type="checkbox" name="encrypt">
-                <span class="slider"></span>
-            </label>
-            <span id="toggle-text">Crypter</spamn>
-        </div>
+<div id="encrypt-decrypt">
+    <label class="switch">
+        <input type="radio" name="action" id="encrypt-radio" value="encrypt">
+        <span class="slider"></span>
+    </label>
+    <span id="crypt" class="toggle-text">Crypter</span>
+
+    <label class="switch">
+        <input type="radio" name="action" id="decrypt-radio" value="decrypt">
+        <span class="slider"></span>
+    </label>
+    <span id="decrypt" class="toggle-text">Décrypter</span>
+</div>
+
 
         <button type="submit">Envoyer</button>
+        <input type="hidden" name="generate-key" id="generate-key-hidden">
     </form>
+
+    <div id="generated-key-container" style="display: none;">
+        <h3>Clé générée :</h3>
+        <p id="generated-key"></p>
+    </div>
 
     <section id="algo-explanation" style="display:none;">
         <h2>Particularités de l'algorithme sélectionné :</h2>
@@ -94,28 +107,68 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   </section>
 
 
-     <script src="script.js"></script>
+  <script src="script.js"></script>
+<script>
+      document.getElementById('encrypt-radio').addEventListener('change', function() {
+          if (this.checked) {
+              document.getElementById('crypt').textContent = "Crypter";
+          }
+      });
 
-    <script>
-        document.getElementById('algo').addEventListener('change', function() {
-            document.getElementById('algo-explanation').style.display = 'block';
+      document.getElementById('decrypt-radio').addEventListener('change', function() {
+          if (this.checked) {
+              document.getElementById('crypt').textContent = "Décrypter";
+          }
+      });
 
-            document.getElementById('cesar-explanation').style.display = 'none';
-            document.getElementById('vigenere-explanation').style.display = 'none';
-            document.getElementById('masque-jetable-explanation').style.display = 'none';
 
-            const selectedAlgo = this.value;
+    document.getElementById('algo').addEventListener('change', function() {
+        const selectedAlgo = this.value;
+        const keyContainer = document.getElementById('key-container');
+        const keyDisplay = document.getElementById('key-display');
+        const keyInput = document.getElementById('key');
+        const charInput = document.querySelector('input[name="char"]');
 
-            if (selectedAlgo === 'cesar') {
-                document.getElementById('cesar-explanation').style.display = 'block';
-            } else if (selectedAlgo === 'vigenere') {
-                document.getElementById('vigenere-explanation').style.display = 'block';
-            } else if (selectedAlgo === 'masque_jetable') {
-                document.getElementById('masque-jetable-explanation').style.display = 'block';
-                document.getElementById('key-container').style.display = 'none';
-                document.getElementById('key-display').style.display = 'block';
-            }
-        });
-    </script>
+        keyInput.value = '';
+
+        if (selectedAlgo === 'masque_jetable') {
+            keyContainer.style.display = 'none';
+            keyDisplay.style.display = 'block';
+        } else {
+            keyContainer.style.display = 'block';
+            keyDisplay.style.display = 'none';
+        }
+    });
+
+    document.getElementById('generate-key').addEventListener('click', function() {
+        const charInput = document.querySelector('input[name="char"]');
+        const length = charInput.value.length;
+
+        if (length === 0) {
+            alert('Veuillez entrer une phrase d\'abord.');
+            return;
+        }
+        const randomKey = generateRandomKey(length);
+
+        document.getElementById('generated-key').textContent = randomKey;
+        document.getElementById('generated-key-container').style.display = 'block';
+
+        document.getElementById('key').value = randomKey;
+
+        document.getElementById('generate-key-hidden').value = randomKey;
+    });
+
+    function generateRandomKey(length) {
+        const characters = 'abcdefghijklmnopqrstuvwxyz';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            result += characters[randomIndex];
+        }
+        return result;
+    }
+
+
+</script>
 </body>
 </html>

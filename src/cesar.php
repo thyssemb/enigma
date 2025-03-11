@@ -13,8 +13,8 @@ class Cesar {
     public $result = '';
 
     public function __construct($key, $char) {
-        $this->key = (int) $key;
         $this->char = $char;
+        $this->key = (int) $key;
     }
 
     public function returnChar() {

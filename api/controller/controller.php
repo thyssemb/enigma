@@ -18,33 +18,34 @@ class Controller {
 
     private $allowedMethods = ['POST'];
 
-    public function handleRequest($algo, $char, $key, $encrypt, $generate_key)
-       {
-           $result = '';
+    public function handleRequest($algo, $char, $key, $action, $generate_key)
+    {
+        $result = '';
 
-           switch ($algo) {
-               case 'cesar':
-                   $cesar = new Cesar($key, $char);
-                   $result = $cesar->encrypt($char);
-                   break;
-               case 'vigenere':
-                   $vigenere = new Vigenere($key, $char, $encrypt);
-                   if (strlen($key) == strlen($char)) {
-                   $result = $vigenere->encrypt();
-                   } else {
-                   echo "Les phrases entrées ne sont pas de la même longueur";
-                   }
-                   break;
-               case 'masque_jetable':
-                   $onetimepad = new OneTimePad($char, $generate_key);
-                   break;
-               default:
-                   $result = "Algorithme non valide.";
-                   break;
-           }
+        switch ($algo) {
+            case 'cesar':
+                $cesar = new Cesar($key, $char);
+                $result = ($action == 'encrypt') ? $cesar->encrypt($char) : $cesar->decrypt($char);
+                break;
+            case 'vigenere':
+                $vigenere = new Vigenere($key, $char, $action == 'encrypt');
+                if (strlen($key) == strlen($char)) {
+                    $result = ($action == 'encrypt') ? $vigenere->encrypt() : $vigenere->decrypt();
+                } else {
+                    echo "Les phrases entrées ne sont pas de la même longueur";
+                }
+                break;
+            case 'masque_jetable':
+                $onetimepad = new OneTimePad($char, $generate_key);
+                $result = ($action == 'encrypt') ? $onetimepad->encrypt($char) : $onetimepad->decrypt($char);
+                break;
+            default:
+                $result = "Algorithme non valide.";
+                break;
+        }
 
-           return $result;
-       }
+        return $result;
+    }
 }
 
 $controller = new Controller();
